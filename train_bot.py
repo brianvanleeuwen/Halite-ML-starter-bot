@@ -11,7 +11,7 @@ from keras.callbacks import EarlyStopping
 REPLAY_FOLDER = sys.argv[1]
 training_input = None
 
-VISIBLE_DISTANCE = 5
+VISIBLE_DISTANCE = 4
 input_dim=4*(2*VISIBLE_DISTANCE+1)*(2*VISIBLE_DISTANCE+1)
 
 model = Sequential([Dense(512, activation='relu', input_dim=input_dim),

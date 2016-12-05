@@ -41,7 +41,7 @@ for replay_name in os.listdir(REPLAY_FOLDER):
 
     moves = (np.arange(5) == np.array(replay['moves'])[:,:,:,None]).astype(int)
     stacks = np.array([player==target_id,(player!=target_id) & (player!=0),prod/20,strength/255])
-    stacks = stacks.transpose(1,0,2,3)[:len(moves)].astype(np.float32)
+    stacks = stacks.transpose(1,0,2,3)[:min(100,len(moves))].astype(np.float32)
 
     position_indices = stacks[:,0].nonzero()
     sampling_rate = 1/stacks[:,0].mean(axis=(1,2))[position_indices[0]]

@@ -3,7 +3,7 @@ import os
 import sys
 import numpy as np
 
-VISIBLE_DISTANCE = 5
+VISIBLE_DISTANCE = 4
 input_dim=4*(2*VISIBLE_DISTANCE+1)*(2*VISIBLE_DISTANCE+1)
 
 myID, gameMap = getInit()

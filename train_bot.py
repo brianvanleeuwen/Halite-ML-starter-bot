@@ -45,6 +45,7 @@ for replay_name in os.listdir(REPLAY_FOLDER):
 
     position_indices = stacks[:,0].nonzero()
     sampling_rate = 1/stacks[:,0].mean(axis=(1,2))[position_indices[0]]
+    sampling_rate /= moves[:100][position_indices].dot(moves[:100][position_indices].mean(axis=0))
     sampling_rate /= sampling_rate.sum()
     sample_indices = np.transpose(position_indices)[np.random.choice(np.arange(len(sampling_rate)),2048,p=sampling_rate)]
 

@@ -30,7 +30,7 @@ def frame_to_stack(frame):
 sendInit('brianvanleeuwen')
 while True:
     stack = frame_to_stack(getFrame())
-    positions = np.transpose(np.nonzero(stack[:,:,0]))
+    positions = np.transpose(np.nonzero(stack[0]))
     output = model.predict(np.array([stack_to_input(stack, p) for p in positions]))
     sendFrame([Move(Location(positions[i][1],positions[i][0]), output[i].argmax()) for i in range(len(positions))])
     

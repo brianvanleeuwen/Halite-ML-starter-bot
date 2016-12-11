@@ -11,4 +11,4 @@ Run the bot on to mimic the winner of each replay:
 python train_bot.py ./replays
 ```
 
-Add hlt.py, networking.py, model.h5, and MyBot.py to MyBot.zip and submit to [halite.io](https://halite.io)
+Add hlt.py, networking.py, model.h5, LANGUAGE, and MyBot.py to MyBot.zip and submit to [halite.io](https://halite.io)

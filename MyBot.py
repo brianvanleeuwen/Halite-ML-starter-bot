@@ -16,9 +16,9 @@ model.predict(np.random.randn(1,input_dim)).shape # make sure model is compiled 
 
 def stack_to_input(stack, position):
     return np.take(np.take(stack,
-                np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)-position[0],axis=1,mode='wrap'),
-                np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)-position[1],axis=2,mode='wrap').flatten()
-    
+                np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)+position[0],axis=1,mode='wrap'),
+                np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)+position[1],axis=2,mode='wrap').flatten()
+
 def frame_to_stack(frame):
     game_map = np.array([[(x.owner, x.production, x.strength) for x in row] for row in frame.contents])
     return np.array([(game_map[:, :, 0] == myID),  # 0 : owner is me
@@ -33,4 +33,3 @@ while True:
     positions = np.transpose(np.nonzero(stack[0]))
     output = model.predict(np.array([stack_to_input(stack, p) for p in positions]))
     sendFrame([Move(Location(positions[i][1],positions[i][0]), output[i].argmax()) for i in range(len(positions))])
-    

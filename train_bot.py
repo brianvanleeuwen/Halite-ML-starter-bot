@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 
@@ -7,7 +8,7 @@ import json
 from keras.models import Sequential,load_model
 from keras.layers import Dense
 from keras.layers.advanced_activations import LeakyReLU
-from keras.callbacks import EarlyStopping,ModelCheckpoint
+from keras.callbacks import EarlyStopping,ModelCheckpoint,TensorBoard
 
 REPLAY_FOLDER = sys.argv[1]
 training_input = []
@@ -62,6 +63,8 @@ for replay_name in os.listdir(REPLAY_FOLDER):
     training_input.append(replay_input.astype(np.float32))
     training_target.append(replay_target.astype(np.float32))
 
+now = datetime.datetime.now()
+tensorboard = TensorBoard(log_dir='./logs/'+now.strftime('%Y.%m.%d %H.%M'))
 training_input = np.concatenate(training_input,axis=0)
 training_target = np.concatenate(training_target,axis=0)
 indices = np.arange(len(training_input))
@@ -71,7 +74,8 @@ training_target = training_target[indices]
 
 model.fit(training_input,training_target,validation_split=0.2,
           callbacks=[EarlyStopping(patience=10),
-                     ModelCheckpoint('model.h5',verbose=1,save_best_only=True)],
+                     ModelCheckpoint('model.h5',verbose=1,save_best_only=True),
+                     tensorboard],
           batch_size=1024, nb_epoch=1000)
 
 model = load_model('model.h5')

@@ -32,9 +32,10 @@ def stack_to_input(stack, position):
                 np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)+position[0],axis=1,mode='wrap'),
                 np.arange(-VISIBLE_DISTANCE,VISIBLE_DISTANCE + 1)+position[1],axis=2,mode='wrap').flatten()
 
-for replay_name in os.listdir(REPLAY_FOLDER):
+size = len(os.listdir(REPLAY_FOLDER))    
+for index, replay_name in enumerate(os.listdir(REPLAY_FOLDER)):
     if replay_name[-4:]!='.hlt':continue
-    print('Loading {}'.format(replay_name))
+    print('Loading {} ({}/{})'.format(replay_name, index, size))
     replay = json.load(open('{}/{}'.format(REPLAY_FOLDER,replay_name)))
 
     frames=np.array(replay['frames'])
